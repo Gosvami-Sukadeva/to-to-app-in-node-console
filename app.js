@@ -49,10 +49,30 @@ const handleData = (type, title) => {
   if (type === 1 || type === 2) {
     isExisted = tasks.find((task) => task.title === title) ? true : false;
     if (type === 1 && isExisted) {
-      console.log("takie zadanie już istnieje");
+      return console.log("takie zadanie już istnieje");
     } else if (type === 2 && !isExisted) {
       return console.log("Nie mogę usunąć zadania, które nie istnieje");
     }
+  }
+  switch (type) {
+    case 1:
+      console.log("dodaje zadanie");
+      const id = tasks.length + 1;
+      tasks.push({ id, title });
+      console.log(tasks);
+      const dataJSON = JSON.stringify(tasks);
+      console.log(dataJSON);
+      fs.writeFileSync("data.json", dataJSON);
+      console.log(`dodaje zadanie: ${title}`.white.bgGreen);
+      break;
+
+    case 2:
+      console.log("usuwam zadanie");
+      break;
+
+    case 3:
+      console.log("wyświetlam listę");
+      break;
   }
 };
 handleCommand(command);
